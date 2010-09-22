@@ -1,9 +1,9 @@
 require 'formula'
 
 class Unison < Formula
+  url 'http://www.seas.upenn.edu/~bcpierce/unison//download/releases/unison-2.32.52/unison-2.32.52.tar.gz'
   homepage 'http://www.cis.upenn.edu/~bcpierce/unison/'
-  url 'http://www.seas.upenn.edu/~bcpierce/unison//download/releases/unison-2.40.102/unison-2.40.102.tar.gz'
-  sha1 'bf18f64fa30bd04234e864d42190294e0d9a2910'
+  md5 '0701f095c1721776a0454b94607eda48'
 
   bottle do
     cellar :any
@@ -29,15 +29,16 @@ class Unison < Formula
 end
 
 __END__
-diff --git a/ubase/util.ml b/ubase/util.ml
-index 2ed467f..e143f30 100644
---- a/ubase/util.ml
-+++ b/ubase/util.ml
-@@ -62,7 +62,7 @@ let set_infos s =
-   if s <> !infos then begin clear_infos (); infos := s; show_infos () end
-
- let msg f =
--  clear_infos (); Uprintf.eprintf (fun () -> flush stderr; show_infos ()) f
-+  clear_infos (); Printf.kfprintf (fun c -> flush c; show_infos ()) stderr f
-
- let msg : ('a, out_channel, unit) format -> 'a = msg
+diff --git a/update.mli b/update.mli
+index dc1e018..c99c704 100644
+--- a/update.mli
++++ b/update.mli
+@@ -1,7 +1,7 @@
+ (* Unison file synchronizer: src/update.mli *)
+ (* Copyright 1999-2009, Benjamin C. Pierce (see COPYING for details) *)
+ 
+-module NameMap : Map.S with type key = Name.t
++module NameMap : MyMap.S with type key = Name.t
+ 
+ type archive =
+     ArchiveDir of Props.t * archive NameMap.t
