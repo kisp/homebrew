@@ -42,7 +42,7 @@ class Libsndfile < Formula
   end
 
   def install
-    ENV.universal_binary if build.universal?
+    ENV.m32
 
     system "autoreconf", "-i"
     system "./configure", "--disable-dependency-tracking", "--prefix=#{prefix}"
