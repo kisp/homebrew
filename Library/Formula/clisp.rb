@@ -7,7 +7,10 @@ class Clisp < Formula
   sha1 '7e8d585ef8d0d6349ffe581d1ac08681e6e670d4'
 
   depends_on 'libsigsegv'
+  # depends_on 'libffcall'
   depends_on 'readline'
+  depends_on 'gdbm'
+  depends_on 'pcre'
 
   fails_with :llvm do
     build 2334
@@ -29,7 +32,12 @@ class Clisp < Formula
     ENV['CC'] = "#{ENV.cc} -m#{MacOS.prefer_64_bit? ? 64 : 32}"
 
     system "./configure", "--prefix=#{prefix}",
-                          "--with-readline=yes"
+                          "--with-readline=yes",
+                          "--with-module=gdbm",
+                          "--with-module=pcre",
+                          # "--with-module=zlib",
+                          # "--with-module=wildcard",
+                          "--with-module=rawsock"
 
     cd "src" do
       # Multiple -O options will be in the generated Makefile,
